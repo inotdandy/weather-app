@@ -1,12 +1,25 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+export default {
+  data(){
+    return{
+      apiKey: '65b48d566cec14fc37b043bd2741cf71',
+      city: 'Cebu'
+    }
+  },
+  getWeather(){
+    axios.get(`api.openweathermap.org/data/2.5/weather?q=${this.city},{state code}&appid=${this.apiKey}`)
+  },
+  created(){
+    this.getWeather();
+  }
+}
+</script>
 
 <style lang="scss">
 #app {
