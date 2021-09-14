@@ -5,41 +5,34 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   data(){
     return{
-      apiKey: '65b48d566cec14fc37b043bd2741cf71',
-      city: 'Cebu'
+      apiKey: process.env.VUE_APP_WEATHER_API,
+      city: 'Ormoc'
     }
   },
-  getWeather(){
-    axios.get(`api.openweathermap.org/data/2.5/weather?q=${this.city},{state code}&appid=${this.apiKey}`)
+  methods: {
+      getCurrentWeather(){
+        axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=${this.apiKey}`)
+        .then(res => console.log(res.data))
+        .catch(err => console.log(err))
+      }
   },
   created(){
-    this.getWeather();
+    this.getCurrentWeather();
   }
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Quicksand', sans-serif;
 }
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
 </style>
